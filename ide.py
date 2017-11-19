@@ -8,6 +8,27 @@ def donothing():
    # button.pack()
    pass
 
+def convert_number(code):
+    keywords = {
+            "0":"০",
+            "1":"১",
+            "2":"২",
+            "3":"৩",
+            "4":"৪",
+            "5":"৫",
+            "6":"৬",
+            "7":"৭",
+            "8":"৮",
+            "9":"৯"
+            }
+
+    # converting keywords into c
+    key_word_keys = list(keywords.keys())
+    for i in range(len(keywords.keys())):
+        code = code.replace(key_word_keys[i], keywords[key_word_keys[i]])
+
+    return code
+
 def build():
     raw_code = code.get('1.0', END)
 
@@ -21,6 +42,7 @@ def build():
 def run():
     output_file = io.open("output.txt", mode="r", encoding="utf-8")
     result = output_file.read()
+    result = convert_number(result)
 
     output.delete('1.0', END)
 
