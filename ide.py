@@ -53,10 +53,9 @@ helpmenu.add_command(label="Help Index", command=donothing)
 helpmenu.add_command(label="About...", command=donothing)
 menubar.add_cascade(label="Help", menu=helpmenu)
 
-
-
 root.config(menu=menubar)
 
+# Text box menu
 T = Text(root)
 T.pack()
 T.insert(END, "first line")
