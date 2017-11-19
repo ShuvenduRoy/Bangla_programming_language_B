@@ -1,4 +1,5 @@
 import io
+import os
 bangla_code = io.open("main.b", mode="r", encoding="utf-8")
 code = bangla_code.read()
 
@@ -17,11 +18,13 @@ for i in range(len(keywords.keys())):
     code = code.replace(key_word_keys[i], keywords[key_word_keys[i]])
 
 
-
-## tokenize
-#tokens = code.split()
-#line = " ".join(tokens)
-
+# adding special lines for c
+new_code = ""
+for line in code.splitlines():
+    new_code += (line + '\n')
+    if 'main' in line:
+        new_code += '    fp = fopen("output.txt", "w+");\n'
+code = new_code
 
 c_code = open("main.c", 'w', encoding='utf-8')
 c_code.write(code)
