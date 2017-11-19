@@ -26,6 +26,8 @@ def get_next_variable(variable):
             variable = re.match( r'.*=', variable, re.M|re.I).group(0)[:-1]
         # print(variable)
     
+        # removing the $
+        variable = variable[1:]
         new_var = "var" + str(variable_counter)
         variable_counter += 1
         variable_map[variable] = new_var    
@@ -98,7 +100,8 @@ def generate_c():
     keywords = variable_map
     key_word_keys = list(keywords.keys())
     for i in range(len(keywords.keys())):
-        code = code.replace(key_word_keys[i], keywords[key_word_keys[i]])
+        code = code.replace('$'+key_word_keys[i], keywords[key_word_keys[i]])
+        code = code.replace('&'+key_word_keys[i], '&'+keywords[key_word_keys[i]])
 
 
     # adding special lines for c
