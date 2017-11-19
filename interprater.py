@@ -1,5 +1,6 @@
 import io
 import os
+import time
 bangla_code = io.open("main.b", mode="r", encoding="utf-8")
 code = bangla_code.read()
 
@@ -12,7 +13,7 @@ keywords = {
         "ফাকা": "void"
         }
 
-# converting keywords into c 
+# converting keywords into c
 key_word_keys = list(keywords.keys())
 for i in range(len(keywords.keys())):
     code = code.replace(key_word_keys[i], keywords[key_word_keys[i]])
@@ -30,3 +31,6 @@ c_code = open("main.c", 'w', encoding='utf-8')
 c_code.write(code)
 c_code.close()
 
+os.system('gcc main.c -o main')
+time.sleep(.1)
+os.system('.\main.exe')
