@@ -8,30 +8,30 @@ def get_next_variable(variable):
     if 'variable_counter' not in globals():
         global variable_counter
         variable_counter = 0
-    
+
     if 'variable_map' not in globals():
         global variable_map
         variable_map = {}
-        
+
     var = ""
     for c in variable:
         if c is not ' ':
             var += c
     variables = var.split(',')
-    
+
     for variable in variables:
         if '[' in variable:
             variable = re.match( r'.*\[', variable, re.M|re.I).group(0)[:-1]
         elif '=' in variable:
             variable = re.match( r'.*=', variable, re.M|re.I).group(0)[:-1]
         # print(variable)
-    
+
         # removing the $
         variable = variable[1:]
         new_var = "var" + str(variable_counter)
         variable_counter += 1
-        variable_map[variable] = new_var    
-    
+        variable_map[variable] = new_var
+
 
 def generate_c():
 
@@ -54,7 +54,21 @@ def generate_c():
             "৯":"9",
             "প্রধান":"main",
             "দেখাও(":"fprintf(fp, ",
-            "ফাকা": "void"
+            "ফাকা": "void",
+            "দশমিক":"double",
+            "সঙ্খা": "int",
+            "বর্ণ" : "char",
+            "%ব" : "%s",
+            "%স" : "%d",
+            "%দ" : "%lf",
+            "%চ" : "%c",
+            "\ন" : "\\n",
+            "যতখন": "while",
+            "কর": "do",
+            "জন্য": "for",
+            "যদি": "if",
+            "থাম": "break",
+            "৳":"$"
             }
 
     # converting keywords into c
@@ -70,14 +84,14 @@ def generate_c():
         if 'main' in line:
             new_code += '    fp = fopen("output.txt", "w+");\n'
     code = new_code
-    
+
 #    m = re.search('int ', 'a=1, b[50], c=0')
 #    src = 'a=1,b[50],c=0'
 #    src = src.split(',')
 #    re.match( r'.*=', src[0], re.M|re.I).group(0)[:-1]
 #    re.split('=?[0-9]*,?', '', flags=re.IGNORECASE)
 #    print(m.group(1))
-    
+
     for line in code.splitlines():
         # remove all extra space with one space
         if line.startswith(' '):
@@ -94,7 +108,7 @@ def generate_c():
             get_next_variable(line[5:])
         elif 'double ' in line:
             get_next_variable(line[7:])
-            
+
     # Replacing variable
     # converting keywords into c
     keywords = variable_map
@@ -111,8 +125,8 @@ def generate_c():
         if 'main' in line:
             new_code += '    fp = fopen("output.txt", "w+");\n'
     code = new_code
-            
-    
+
+
     c_code = open("main.c", 'w', encoding='utf-8')
     c_code.write(code)
     c_code.close()
