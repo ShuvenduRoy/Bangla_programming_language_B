@@ -3,4 +3,4 @@ main.b
 output.txt
 *.exe
 __pycache__/
-
+.idea/
