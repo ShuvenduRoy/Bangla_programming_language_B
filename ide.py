@@ -1,12 +1,4 @@
-# from tkinter import *
-# from tkinter import ttk
-#
-# root = Tk()
-# T = Text(root, height=30, width=40)
-# T.pack()
-# T.insert(END, "first line")
-# mainloop()
-
+from interprater import generate_c
 from tkinter import *
 
 def donothing():
@@ -15,7 +7,18 @@ def donothing():
    # button.pack()
    pass
 
+def build():
+    raw_code = code.get('1.0', END)
+
+    b_code = open("main.b", 'w', encoding='utf-8')
+    b_code.write(raw_code)
+    b_code.close()
+    print("build successful")
+
+    generate_c()
+
 root = Tk()
+root.title("B Programming environment")
 menubar = Menu(root)
 filemenu = Menu(menubar, tearoff=0)
 filemenu.add_command(label="New", command=donothing)
@@ -43,7 +46,7 @@ menubar.add_cascade(label="Edit", menu=editmenu)
 
 # Build menu
 build_menu = Menu(menubar, tearoff=0)
-build_menu.add_cascade(label="Build")
+build_menu.add_cascade(label="Build", command=build)
 build_menu.add_cascade(label="Run")
 menubar.add_cascade(label="Build", menu = build_menu)
 
@@ -56,8 +59,12 @@ menubar.add_cascade(label="Help", menu=helpmenu)
 root.config(menu=menubar)
 
 # Text box menu
-T = Text(root)
-T.pack()
-T.insert(END, "first line")
+code = Text(root)
+code.pack()
+
+output = Text(root, height=10)
+output.insert(END, "Output: ")
+output.pack()
+# code.insert(END, "first line")
 
 root.mainloop()
