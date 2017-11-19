@@ -98,7 +98,7 @@ def generate_c():
             line = re.sub(' +', " ", line)
         # remove the first space
         if line.startswith(' '):
-            line = line[1:]
+            line = line[1:-1]
 
         if 'int ' in line:
             get_next_variable(line[4:])
@@ -134,3 +134,5 @@ def generate_c():
     os.system('gcc main.c -o main')
     time.sleep(.1)
     # os.system('.\main.exe')
+
+generate_c()
