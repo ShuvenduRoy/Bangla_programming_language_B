@@ -134,6 +134,6 @@ def generate_c():
 
     os.system('gcc main.c -o main')
     time.sleep(.1)
-    # os.system('.\main.exe')
+    os.startfile('.\main.exe')
 
-generate_c()
+# generate_c()

@@ -41,7 +41,7 @@ def build():
     generate_c()
 
 def run():
-    os.startfile('.\main.exe')
+    # os.startfile('.\main.exe')
 
     output_file = io.open("output.txt", mode="r", encoding="utf-8")
     result = output_file.read()
