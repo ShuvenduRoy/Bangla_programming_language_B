@@ -1,6 +1,7 @@
 from interprater import generate_c
 from tkinter import *
 import io
+import os
 
 def donothing():
    # filewin = Toplevel(root)
@@ -40,6 +41,8 @@ def build():
     generate_c()
 
 def run():
+    os.system('.\main.exe')
+
     output_file = io.open("output.txt", mode="r", encoding="utf-8")
     result = output_file.read()
     result = convert_number(result)
