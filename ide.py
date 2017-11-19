@@ -1,5 +1,6 @@
 from interprater import generate_c
 from tkinter import *
+import io
 
 def donothing():
    # filewin = Toplevel(root)
@@ -16,6 +17,15 @@ def build():
     print("build successful")
 
     generate_c()
+
+def run():
+    output_file = io.open("output.txt", mode="r", encoding="utf-8")
+    result = output_file.read()
+
+    output.delete('1.0', END)
+
+    output.insert(END, "Output: \n")
+    output.insert(END, result)
 
 root = Tk()
 root.title("B Programming environment")
@@ -47,7 +57,7 @@ menubar.add_cascade(label="Edit", menu=editmenu)
 # Build menu
 build_menu = Menu(menubar, tearoff=0)
 build_menu.add_cascade(label="Build", command=build)
-build_menu.add_cascade(label="Run")
+build_menu.add_cascade(label="Run", command=run)
 menubar.add_cascade(label="Build", menu = build_menu)
 
 # help menu
