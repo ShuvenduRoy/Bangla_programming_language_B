@@ -54,6 +54,7 @@ def generate_c():
             "৯":"9",
             "প্রধান":"main",
             "দেখাও(":"fprintf(fp, ",
+            "গ্রহন":"scanf",
             "ফাকা": "void",
             "দশমিক":"double",
             "সঙ্খা": "int",
