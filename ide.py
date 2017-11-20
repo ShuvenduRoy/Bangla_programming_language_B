@@ -2,12 +2,33 @@ from interprater import generate_c
 from tkinter import *
 import io
 import os
+import re
 
 def donothing():
    # filewin = Toplevel(root)
    # button = Button(filewin, text="Do nothing button")
    # button.pack()
    pass
+
+def highlight():
+    code.tag_configure("highlight", foreground="green")
+    # code.tag_add("highlight", "3.0", "3.5")
+    
+    raw = code.get('1.0', END)
+    raw = raw.split('\n')
+    
+    p = re.compile("প্রধান|দেখাও|গ্রহন|ফাকা|দশমিক|সঙ্খা|বর্ণ|%ব|%স|%দ|%চ|%চ|যতখন|কর|জন্য|যদি|থাম|৳|$")
+    
+    for i in range(len(raw)):
+        for m in p.finditer(raw[i]):
+            if len(m.group()) > 0:
+                start = str(i+1)+'.'+str(m.start())
+                end = str(i+1)+'.'+str(m.start() + len(m.group()))
+                code.tag_add("highlight", start, end)
+                # print(start, end)
+            # print (i, m.start(), m.group(), len(m.group()))
+    
+
 
 def convert_number(code):
     keywords = {
@@ -75,6 +96,8 @@ editmenu.add_command(label="Cut", command=donothing)
 editmenu.add_command(label="Copy", command=donothing)
 editmenu.add_command(label="Paste", command=donothing)
 editmenu.add_command(label="Delete", command=donothing)
+editmenu.add_command(label="Highlight", command=highlight)
+
 editmenu.add_command(label="Select All", command=donothing)
 
 menubar.add_cascade(label="Edit", menu=editmenu)
