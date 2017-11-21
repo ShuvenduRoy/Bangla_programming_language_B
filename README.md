@@ -33,7 +33,7 @@ Some key difference are
 গ্রহন ---> scanf<br>
 ফাকা --->  void<br>
 দশমিক ---> double<br>
-সঙ্খা --->  int<br>
+সংখ্যা --->  int<br>
 বর্ণ  --->  char<br>
 যতখন --->  while<br>
 কর --->  do<br>
@@ -45,5 +45,3 @@ Some key difference are
 %দ  --->  %lf<br>
 %চ  --->  %c<br>
 \ন  --->  \\n<br>
-
-
