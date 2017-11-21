@@ -13,12 +13,12 @@ def donothing():
 def highlight():
     code.tag_configure("highlight", foreground="green")
     # code.tag_add("highlight", "3.0", "3.5")
-    
+
     raw = code.get('1.0', END)
     raw = raw.split('\n')
-    
-    p = re.compile("প্রধান|দেখাও|গ্রহন|ফাকা|দশমিক|সঙ্খা|বর্ণ|%ব|%স|%দ|%চ|%চ|যতখন|কর|জন্য|যদি|থাম|৳|$")
-    
+
+    p = re.compile("প্রধান|দেখাও|গ্রহন|ফাকা|দশমিক|সংখ্যা|বর্ণ|%ব|%স|%দ|%চ|%চ|যতখন|কর|জন্য|যদি|থাম|৳|$")
+
     for i in range(len(raw)):
         for m in p.finditer(raw[i]):
             if len(m.group()) > 0:
@@ -27,7 +27,7 @@ def highlight():
                 code.tag_add("highlight", start, end)
                 # print(start, end)
             # print (i, m.start(), m.group(), len(m.group()))
-    
+
 
 
 def convert_number(code):
