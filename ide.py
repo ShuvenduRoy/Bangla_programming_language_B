@@ -4,11 +4,13 @@ import io
 import os
 import re
 
+
 def donothing():
-   # filewin = Toplevel(root)
-   # button = Button(filewin, text="Do nothing button")
-   # button.pack()
-   pass
+    # filewin = Toplevel(root)
+    # button = Button(filewin, text="Do nothing button")
+    # button.pack()
+    pass
+
 
 def highlight():
     code.tag_configure("highlight", foreground="green")
@@ -22,27 +24,26 @@ def highlight():
     for i in range(len(raw)):
         for m in p.finditer(raw[i]):
             if len(m.group()) > 0:
-                start = str(i+1)+'.'+str(m.start())
-                end = str(i+1)+'.'+str(m.start() + len(m.group()))
+                start = str(i + 1) + '.' + str(m.start())
+                end = str(i + 1) + '.' + str(m.start() + len(m.group()))
                 code.tag_add("highlight", start, end)
                 # print(start, end)
-            # print (i, m.start(), m.group(), len(m.group()))
-
+                # print (i, m.start(), m.group(), len(m.group()))
 
 
 def convert_number(code):
     keywords = {
-            "0":"০",
-            "1":"১",
-            "2":"২",
-            "3":"৩",
-            "4":"৪",
-            "5":"৫",
-            "6":"৬",
-            "7":"৭",
-            "8":"৮",
-            "9":"৯"
-            }
+        "0": "০",
+        "1": "১",
+        "2": "২",
+        "3": "৩",
+        "4": "৪",
+        "5": "৫",
+        "6": "৬",
+        "7": "৭",
+        "8": "৮",
+        "9": "৯"
+    }
 
     # converting keywords into c
     key_word_keys = list(keywords.keys())
@@ -50,6 +51,7 @@ def convert_number(code):
         code = code.replace(key_word_keys[i], keywords[key_word_keys[i]])
 
     return code
+
 
 def build():
     raw_code = code.get('1.0', END)
@@ -60,6 +62,7 @@ def build():
     print("build successful")
 
     generate_c()
+
 
 def run():
     # os.startfile('.\main.exe')
@@ -72,6 +75,15 @@ def run():
 
     output.insert(END, "Output: \n")
     output.insert(END, result)
+
+
+def load():
+    b_code = io.open("main.b", mode="r", encoding="utf-8").read()
+    code.delete(1.0, END)
+    code.insert(END, b_code)
+
+    highlight()
+
 
 root = Tk()
 root.title("B Programming environment")
@@ -104,9 +116,10 @@ menubar.add_cascade(label="Edit", menu=editmenu)
 
 # Build menu
 build_menu = Menu(menubar, tearoff=0)
+build_menu.add_cascade(label="Load", command=load)
 build_menu.add_cascade(label="Build", command=build)
 build_menu.add_cascade(label="Run", command=run)
-menubar.add_cascade(label="Build", menu = build_menu)
+menubar.add_cascade(label="Build", menu=build_menu)
 
 # help menu
 helpmenu = Menu(menubar, tearoff=0)
